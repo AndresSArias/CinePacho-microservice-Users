@@ -1,6 +1,8 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.MemberEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IMemberRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
@@ -19,14 +21,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     IUserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    @Autowired
+    IMemberRepository memberRepository;
 
-        UserEntity usuario =  userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+    @Override
+    public UserDetails loadUserByUsername(String numberDocument) throws UsernameNotFoundException {
+
+        UserEntity usuario =  userRepository.findByNumberDocument(numberDocument).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        MemberEntity member = memberRepository.findByNumberDocument(numberDocument).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
         List<UserEntity> userEntity = userRepository.findAllById(usuario.getId());
+
         if (userEntity.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
+            throw new UsernameNotFoundException("User not found with number document: " + numberDocument);
         }
 
         List<RoleEntity> roles = new ArrayList<>();
@@ -35,6 +42,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             roles.add(user.getRoleEntity());
         }
 
-        return PrincipalUser.build(usuario, roles);
+        return PrincipalUser.build(usuario, member,roles);
     }
 }

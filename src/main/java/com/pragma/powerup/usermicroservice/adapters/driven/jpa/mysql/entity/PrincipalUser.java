@@ -24,11 +24,11 @@ public class PrincipalUser implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static PrincipalUser build(UserEntity usuario, List<RoleEntity> roles) {
+    public static PrincipalUser build(UserEntity usuario, MemberEntity member, List<RoleEntity> roles) {
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(rol -> new SimpleGrantedAuthority(rol.getName())).toList();
         return new PrincipalUser(usuario.getName(), usuario.getNumberDocument(), usuario.getEmail(),
-                usuario.getPassword(), authorities);
+                member.getPassword(), authorities);
     }
 
     @Override

@@ -26,12 +26,6 @@ public class UserHandlerImpl implements IUserHandler {
     }
 
     @Override
-    public void saveUserEmployee(UserEmployeeRequestDto userEmployeeRequestDto, String token) {
-        userServicePort.saveUserEmployee(userRequestMapper.toUserEmployee(userEmployeeRequestDto),userRequestMapper.toUserRestaurant(userEmployeeRequestDto)
-                ,jwtProvider.getIdUserFromToken(token.substring(7)),token);
-    }
-
-    @Override
     public void saveUserCustomer(UserRequestDto userRequestDto) {
         userServicePort.saveUserCustomer(userRequestMapper.toUserOwner(userRequestDto));
     }

@@ -1,6 +1,5 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,24 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "user_restaurant")
+@Table(name = "clients")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-
-public class UserRestaurantEntity {
+public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private UserEntity userEntity;
+    @Column(unique = true, nullable = false, length = 20)
+    private String numberDocument;
+    @Column(nullable = true)
+    private double ratingCinepacho;
     @Column(nullable = false)
-    private String nitRestaurant;
-    @Column(nullable = false)
-    private String position;
-    @Column(nullable = false)
-    private String active;
-
+    private int points;
 }

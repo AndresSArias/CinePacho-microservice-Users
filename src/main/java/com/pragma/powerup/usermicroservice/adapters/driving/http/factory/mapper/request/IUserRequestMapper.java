@@ -4,7 +4,6 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Use
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoFormatDataException;
 import com.pragma.powerup.usermicroservice.domain.model.User;
-import com.pragma.powerup.usermicroservice.domain.model.UserRestaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -25,15 +24,6 @@ public interface IUserRequestMapper {
 
     @Mapping(source = "dateBirth", target = "dateBirth", qualifiedByName = "toDate")
     User toUserEmployee (UserEmployeeRequestDto userEmployeeRequestDto);
-
-    @Mapping(source = "name", target = "user.name")
-    @Mapping(source = "lastName", target = "user.lastName")
-    @Mapping(source = "numberDocument", target = "user.numberDocument")
-    @Mapping(source = "phone", target = "user.phone")
-    @Mapping(source = "dateBirth", target = "user.dateBirth", qualifiedByName = "toDate")
-    @Mapping(source = "email", target = "user.email")
-    @Mapping(source = "password", target = "user.password")
-    UserRestaurant toUserRestaurant (UserEmployeeRequestDto userEmployeeRequestDto);
     @Named("toDate")
     default LocalDate toDate(String dateOfBirth) throws ParseException {
         try {

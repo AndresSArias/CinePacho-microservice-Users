@@ -7,6 +7,6 @@ import java.text.ParseException;
 
 public interface IAuthHandler {
     JwtResponseDto login(LoginRequestDto loginRequestDto);
-    JwtResponseDto refresh(JwtResponseDto jwtResponseDto) throws ParseException;
+    String refresh(String token) throws ParseException;
 
 }

@@ -35,13 +35,13 @@ public class JwtProvider {
     @Value("${jwt.expiration}")
     private int expiration;
 
-    public String generateToken(Authentication authentication) {
+    public String[] generateToken(Authentication authentication) {
         PrincipalUser usuarioPrincipal = (PrincipalUser) authentication.getPrincipal();
+        String[] response = new String[3];
         List<String> role = usuarioPrincipal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-
-        return Jwts.builder()
+        response[0] = Jwts.builder()
                 .setSubject(usuarioPrincipal.getEmail())
                 .claim(IDUSER, usuarioPrincipal.getUsername())
                 .claim(ROLES, role)
@@ -49,6 +49,9 @@ public class JwtProvider {
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))
                 .signWith(SignatureAlgorithm.HS256, secret.getBytes())
                 .compact();
+        response[1] = role.get(0);
+        response[2] = usuarioPrincipal.getName();
+        return response;
     }
 
     public String getNombreUsuarioFromToken(String token) {
@@ -76,8 +79,9 @@ public class JwtProvider {
         return false;
     }
 
-    public String refreshToken(JwtResponseDto jwtResponseDto) throws ParseException {
-        JWT jwt = JWTParser.parse(jwtResponseDto.getToken());
+    public String refreshToken(String token) throws ParseException {
+
+        JWT jwt = JWTParser.parse(token);
         JWTClaimsSet claims = jwt.getJWTClaimsSet();
         String nombreUsuario = claims.getSubject();
         List<String> roles = claims.getStringListClaim(ROLES);

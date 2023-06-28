@@ -9,7 +9,6 @@ import com.pragma.powerup.usermicroservice.domain.exceptions.DNIIsSoBigException
 import com.pragma.powerup.usermicroservice.domain.exceptions.NitRestaurantException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
 import com.pragma.powerup.usermicroservice.domain.model.User;
-import com.pragma.powerup.usermicroservice.domain.model.UserRestaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,43 +56,6 @@ public class UserUseCase implements IUserServicePort {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userPersistencePort.saveUserOwner(user);
-    }
-
-    @Override
-    public UserEntity saveUserEmployee(User user, UserRestaurant userRestaurant, String onwerDNI, String token) {
-        String nitRestaurant = null;
-        try {
-            nitRestaurant = plazoletaClient.getIdRestaurant(userRestaurant.getNitRestaurant(), getHeaders(token)).getBody();
-        }catch (Exception e){
-            throw new NitRestaurantException();
-        }
-
-        userRestaurant.setNitRestaurant(nitRestaurant);
-
-        if (!validateAge(user.getDateBirth())) {
-            throw new AgeNotAllowedForCreationException();
-        }
-
-        if (user.getNumberDocument().length() > 20){
-            throw new DNIIsSoBigException();
-        }
-
-        if (!validatePhone(user)){
-            throw new PhoneLenghtException();
-        }
-
-        user.setRole(rolePersistencePort.getRol(EMPLOYEE_ROLE_ID));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        UserEntity newEmployee = userPersistencePort.saveUserEmployee(user);
-
-        userRestaurant.setUser(userEntityMapper.toUser(newEmployee));
-        userRestaurant.setPosition("Employee");
-        userRestaurant.setActive("true");
-
-        userPersistencePort.saveRelationUserRestaurant(userRestaurant, newEmployee.getRoleEntity().getId());
-
-        return newEmployee;
     }
 
     @Override
