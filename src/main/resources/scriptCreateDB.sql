@@ -13,23 +13,26 @@ USE cinepacho_dbusers;
 
 SET FOREIGN_KEY_CHECKS=0
 ; 
+
 /* Drop Tables */
 
-DROP TABLE IF EXISTS Clients CASCADE
+
+
+DROP TABLE IF EXISTS clients CASCADE
 ;
 
-DROP TABLE IF EXISTS Members CASCADE
+DROP TABLE IF EXISTS members CASCADE
 ;
 
-DROP TABLE IF EXISTS Roles CASCADE
+DROP TABLE IF EXISTS roles CASCADE
 ;
 
-DROP TABLE IF EXISTS Users CASCADE
+DROP TABLE IF EXISTS users CASCADE
 ;
 
 /* Create Tables */
 
-CREATE TABLE Clients
+CREATE TABLE clients
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	number_document VARCHAR(20) NOT NULL,
@@ -41,7 +44,7 @@ COMMENT = 'Table of client in system'
 
 ;
 
-CREATE TABLE Members
+CREATE TABLE members
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	number_document VARCHAR(20) NOT NULL,
@@ -56,7 +59,7 @@ COMMENT = 'Table containt the employets in system, remember the 3 jobs, Admin, a
 
 ;
 
-CREATE TABLE Roles
+CREATE TABLE roles
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	description VARCHAR(255) NULL,
@@ -67,7 +70,7 @@ COMMENT = 'Table containt roles of users in system'
 
 ;
 
-CREATE TABLE Users
+CREATE TABLE users
 (
 	id BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Id generic of user',
 	number_document VARCHAR(20) NOT NULL COMMENT 'Cedula of user',
@@ -84,69 +87,69 @@ COMMENT = 'In this table containt the users of service Cine Pacho'
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE Clients 
+ALTER TABLE clients 
  ADD CONSTRAINT UNIQUE_Number_Document UNIQUE (number_document ASC)
 ;
 
-ALTER TABLE Clients 
+ALTER TABLE clients 
  ADD CONSTRAINT CK_Rating CHECK (rating_cinepacho > 0)
 ;
 
-ALTER TABLE Clients 
+ALTER TABLE clients 
  ADD CONSTRAINT CK_Points CHECK (points >= 0)
 ;
 
-ALTER TABLE Clients 
+ALTER TABLE clients 
  ADD INDEX IXFK_Client_Users (number_document ASC)
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD CONSTRAINT UNIQUE_Number_Document UNIQUE (number_document ASC)
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD CONSTRAINT UNIQUE_Code_employee UNIQUE (code_employee ASC)
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD CONSTRAINT CK_Salary CHECK (salary > 0)
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD CONSTRAINT CK_Multiplex CHECK (multiplex in ('TITAN','UNICENTRO','PLAZA CENTRAL','GRAN ESTACION','EMBAJADOR', 'LAS AMERICAS'))
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD INDEX IXFK_Members_Users (number_document ASC)
 ;
 
-ALTER TABLE Users 
+ALTER TABLE users 
  ADD CONSTRAINT UNIQUE_Number_Document UNIQUE (number_document ASC)
 ;
 
-ALTER TABLE Users 
+ALTER TABLE users 
  ADD CONSTRAINT UNIQUE_Email UNIQUE (email ASC)
 ;
 
-ALTER TABLE Users 
+ALTER TABLE users 
  ADD INDEX IXFK_Users_Roles (id_role ASC)
 ;
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE Clients 
+ALTER TABLE clients 
  ADD CONSTRAINT FK_Client_Users
-	FOREIGN KEY (number_document) REFERENCES Users (number_document) ON DELETE Restrict ON UPDATE Restrict
+	FOREIGN KEY (number_document) REFERENCES users (number_document) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE Members 
+ALTER TABLE members 
  ADD CONSTRAINT FK_Members_Users
-	FOREIGN KEY (number_document) REFERENCES Users (number_document) ON DELETE Restrict ON UPDATE Restrict
+	FOREIGN KEY (number_document) REFERENCES users (number_document) ON DELETE Restrict ON UPDATE Restrict
 ;
 
-ALTER TABLE Users 
+ALTER TABLE users 
  ADD CONSTRAINT FK_Users_Roles
-	FOREIGN KEY (id_role) REFERENCES Roles (id) ON DELETE Restrict ON UPDATE Restrict
+	FOREIGN KEY (id_role) REFERENCES roles (id) ON DELETE Restrict ON UPDATE Restrict
 ;
 
 SET FOREIGN_KEY_CHECKS=1
