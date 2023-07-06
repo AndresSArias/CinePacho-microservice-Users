@@ -19,7 +19,7 @@ public class UserHandlerImpl implements IUserHandler {
     private final IUserRequestMapper userRequestMapper;
     private final IUserResponseMapper personResponseMapper;
     private final JwtProvider jwtProvider;
-
+/*
     @Override
     public void saveUserOwner(UserRequestDto userRequestDto) {
         userServicePort.saveUserOwner(userRequestMapper.toUserOwner(userRequestDto));
@@ -29,7 +29,7 @@ public class UserHandlerImpl implements IUserHandler {
     public void saveUserCustomer(UserRequestDto userRequestDto) {
         userServicePort.saveUserCustomer(userRequestMapper.toUserOwner(userRequestDto));
     }
-
+*/
     @Override
     public AuthUserResponse getUsuario(String numberDocument) {
         return personResponseMapper.userToAuthUserResponse(userServicePort.getUserByDocument(numberDocument));

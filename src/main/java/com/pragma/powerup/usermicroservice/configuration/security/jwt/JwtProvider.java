@@ -42,8 +42,8 @@ public class JwtProvider {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
         response[0] = Jwts.builder()
-                .setSubject(usuarioPrincipal.getEmail())
-                .claim(IDUSER, usuarioPrincipal.getUsername())
+                .setSubject(usuarioPrincipal.getUsername())
+                .claim(IDUSER, usuarioPrincipal.getId()+"")
                 .claim(ROLES, role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))

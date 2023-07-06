@@ -13,22 +13,25 @@ public class PrincipalUser implements UserDetails {
     private String numberDocument;
     private String email;
     private String password;
+    private  long id;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public PrincipalUser(String name, String numberDocument, String email, String password,
+    public PrincipalUser(String name, String numberDocument, String email, String password, long id,
                          Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
         this.numberDocument = numberDocument;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.id = id;
     }
 
     public static PrincipalUser build(UserEntity usuario, MemberEntity member, List<RoleEntity> roles) {
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(rol -> new SimpleGrantedAuthority(rol.getName())).toList();
         return new PrincipalUser(usuario.getName(), usuario.getNumberDocument(), usuario.getEmail(),
-                member.getPassword(), authorities);
+                member.getPassword(), member.getId(),authorities);
     }
 
     @Override
@@ -72,5 +75,9 @@ public class PrincipalUser implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public long getId() {
+        return id;
     }
 }

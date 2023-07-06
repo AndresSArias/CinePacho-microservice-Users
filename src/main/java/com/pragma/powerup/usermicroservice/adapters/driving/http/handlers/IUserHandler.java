@@ -5,9 +5,10 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Use
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
 
 public interface IUserHandler {
+    /*
     void saveUserOwner(UserRequestDto userRequestDto);
 
     void saveUserCustomer(UserRequestDto userRequestDto);
-
+*/
     AuthUserResponse getUsuario (String numberDocument);
 }

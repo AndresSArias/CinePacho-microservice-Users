@@ -26,7 +26,7 @@ import java.util.Map;
 public class UserRestController {
 
     private final IUserHandler userHandler;
-
+/*
     @Operation(summary = "Add a new userOwner",
             responses = {
                     @ApiResponse(responseCode = "201", description = "UserOwner created",
@@ -41,7 +41,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_OWNER_CREATED_MESSAGE));
     }
-
+*/
     @Operation(summary = "Get a user for conect MicroservicePlazoleta",
             responses = {
                     @ApiResponse(responseCode = "200", description = "User returned",
@@ -53,7 +53,7 @@ public class UserRestController {
     public ResponseEntity<AuthUserResponse> getUser(@PathVariable String numberDocument) {
         return ResponseEntity.ok(userHandler.getUsuario(numberDocument));
     }
-
+/*
 
     @PostMapping("/createUserCustomer")
     public ResponseEntity<Map<String, String>> saveUserCustomer(@Valid @RequestBody UserRequestDto userRequestDto) {
@@ -62,5 +62,5 @@ public class UserRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_EMPLOYEE_CREATED_MESSAGE));
     }
 
-
+*/
 }

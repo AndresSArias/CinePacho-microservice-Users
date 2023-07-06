@@ -4,9 +4,10 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.User
 import com.pragma.powerup.usermicroservice.domain.model.User;
 
 public interface IUserServicePort {
+  /*
     UserEntity saveUserOwner(User user);
 
     UserEntity saveUserCustomer(User user);
-
+*/
     User getUserByDocument (String numberDocument);
 }

@@ -13,10 +13,7 @@ USE cinepacho_dbusers;
 
 SET FOREIGN_KEY_CHECKS=0
 ; 
-
 /* Drop Tables */
-
-
 
 DROP TABLE IF EXISTS clients CASCADE
 ;
@@ -49,7 +46,7 @@ CREATE TABLE members
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	number_document VARCHAR(20) NOT NULL,
 	code_employee VARCHAR(20) NOT NULL,
-	multiplex VARCHAR(80) NULL,
+	id_multiplex BIGINT NULL,
 	salary INT NOT NULL,
 	date_contract DATE NOT NULL,
 	password VARCHAR(255) NOT NULL,
@@ -113,10 +110,6 @@ ALTER TABLE members
 
 ALTER TABLE members 
  ADD CONSTRAINT CK_Salary CHECK (salary > 0)
-;
-
-ALTER TABLE members 
- ADD CONSTRAINT CK_Multiplex CHECK (multiplex in ('TITAN','UNICENTRO','PLAZA CENTRAL','GRAN ESTACION','EMBAJADOR', 'LAS AMERICAS'))
 ;
 
 ALTER TABLE members 

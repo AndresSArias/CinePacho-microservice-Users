@@ -35,7 +35,7 @@ public class UserUseCase implements IUserServicePort {
         this.plazoletaClient = plazoletaClient;
         this.passwordEncoder = passwordEncoder;
     }
-
+    /*
     @Override
     public UserEntity saveUserOwner(User user) {
 
@@ -79,7 +79,7 @@ public class UserUseCase implements IUserServicePort {
 
         return userPersistencePort.saveUserCustomer(user);
     }
-
+    */
     @Override
     public User getUserByDocument(String numberDocument) {
         return userPersistencePort.getUserByDocument(numberDocument);

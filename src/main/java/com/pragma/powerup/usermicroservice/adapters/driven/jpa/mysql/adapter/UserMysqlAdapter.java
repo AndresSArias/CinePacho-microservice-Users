@@ -86,7 +86,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     @Override
     public User getUserByDocument(String numberDocument) {
-        UserEntity userEntity = userRepository.findByNumberDocument(numberDocument).orElseThrow(UserNotFoundException::new);
+        UserEntity userEntity = userRepository.findById(Long.parseLong(numberDocument)).orElseThrow(UserNotFoundException::new);
         return userEntityMapper.toUser(userEntity);
     }
 
