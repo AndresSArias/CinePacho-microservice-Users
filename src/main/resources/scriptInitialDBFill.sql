@@ -28,3 +28,8 @@ INSERT INTO users (id, number_document, name, date_birth, phone, email, id_role)
 VALUES (4, '444', 'Johan Gomez', STR_TO_DATE('10-02-2000', '%d-%m-%Y'),'3101264567','Cliente@cinepacho.com', 4);
 INSERT INTO clients (id,number_document,rating_cinepacho)
 VALUES (1,'444',null);
+
+INSERT INTO users (id, number_document, name, date_birth, phone, email, id_role)
+VALUES (5, '1234', 'Kevin Sanabria', STR_TO_DATE('10-02-1999', '%d-%m-%Y'),'3103264567','Cliente1@cinepacho.com', 4);
+INSERT INTO clients (id,number_document,rating_cinepacho,points)
+VALUES (2,'1234',4.75,45);

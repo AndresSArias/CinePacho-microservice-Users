@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
+
 public interface IUserEntityMapper {
 
     @Mapping(target = "roleEntity.id", source = "role.id")
