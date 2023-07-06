@@ -27,7 +27,7 @@ public class AuthHandlerImpl implements IAuthHandler {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String[] response = jwtProvider.generateToken(authentication);
-        return new JwtResponseDto(response[0],response[1],response[2]);
+        return new JwtResponseDto(response[0],response[3],response[4],response[1],response[2]);
     }
 
     @Override

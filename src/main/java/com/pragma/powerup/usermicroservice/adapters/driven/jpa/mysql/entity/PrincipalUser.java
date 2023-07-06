@@ -14,10 +14,11 @@ public class PrincipalUser implements UserDetails {
     private String email;
     private String password;
     private  long id;
+    private long idMultiplex;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public PrincipalUser(String name, String numberDocument, String email, String password, long id,
+    public PrincipalUser(String name, String numberDocument, String email, String password, long id, long idMultiplex,
                          Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
         this.numberDocument = numberDocument;
@@ -25,13 +26,14 @@ public class PrincipalUser implements UserDetails {
         this.password = password;
         this.authorities = authorities;
         this.id = id;
+        this.idMultiplex = idMultiplex;
     }
 
     public static PrincipalUser build(UserEntity usuario, MemberEntity member, List<RoleEntity> roles) {
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(rol -> new SimpleGrantedAuthority(rol.getName())).toList();
         return new PrincipalUser(usuario.getName(), usuario.getNumberDocument(), usuario.getEmail(),
-                member.getPassword(), member.getId(),authorities);
+                member.getPassword(), member.getId(), member.getIdMultiplex(),authorities);
     }
 
     @Override
@@ -79,5 +81,8 @@ public class PrincipalUser implements UserDetails {
 
     public long getId() {
         return id;
+    }
+    public long getIdMultiplex() {
+        return idMultiplex;
     }
 }

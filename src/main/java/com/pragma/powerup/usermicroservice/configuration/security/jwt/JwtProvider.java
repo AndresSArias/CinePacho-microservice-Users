@@ -37,7 +37,7 @@ public class JwtProvider {
 
     public String[] generateToken(Authentication authentication) {
         PrincipalUser usuarioPrincipal = (PrincipalUser) authentication.getPrincipal();
-        String[] response = new String[3];
+        String[] response = new String[5];
         List<String> role = usuarioPrincipal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
@@ -51,6 +51,8 @@ public class JwtProvider {
                 .compact();
         response[1] = role.get(0);
         response[2] = usuarioPrincipal.getName();
+        response[3] = usuarioPrincipal.getId()+"";
+        response[4] = usuarioPrincipal.getIdMultiplex()+"";
         return response;
     }
 

@@ -29,7 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
         UserEntity usuario =  userRepository.findByNumberDocument(numberDocument).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
         MemberEntity member = memberRepository.findByNumberDocument(numberDocument).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-
+        if (member.getIdMultiplex() == null){
+            member.setIdMultiplex(0L);
+        }
         List<UserEntity> userEntity = userRepository.findAllById(usuario.getId());
 
         if (userEntity.isEmpty()) {

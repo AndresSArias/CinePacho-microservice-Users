@@ -6,16 +6,16 @@ public class Member {
     private Long id;
     private String numberDocument;
     private String codeEmployee;
-    private String multiplex;
+    private long idMultiplex;
     private int salary;
     private LocalDate dateContract;
     private String password;
 
-    public Member(Long id, String numberDocument, String codeEmployee, String multiplex, int salary, LocalDate dateContract, String password) {
+    public Member(Long id, String numberDocument, String codeEmployee, long idMultiplex, int salary, LocalDate dateContract, String password) {
         this.id = id;
         this.numberDocument = numberDocument;
         this.codeEmployee = codeEmployee;
-        this.multiplex = multiplex;
+        this.idMultiplex = idMultiplex;
         this.salary = salary;
         this.dateContract = dateContract;
         this.password = password;
@@ -45,12 +45,12 @@ public class Member {
         this.codeEmployee = codeEmployee;
     }
 
-    public String getMultiplex() {
-        return multiplex;
+    public long getIdMultiplex() {
+        return idMultiplex;
     }
 
-    public void setMultiplex(String multiplex) {
-        this.multiplex = multiplex;
+    public void setIdMultiplex(long idMultiplex) {
+        this.idMultiplex = idMultiplex;
     }
 
     public int getSalary() {

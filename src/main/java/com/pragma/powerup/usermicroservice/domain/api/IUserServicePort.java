@@ -10,4 +10,7 @@ public interface IUserServicePort {
     UserEntity saveUserCustomer(User user);
 */
     User getUserByDocument (String numberDocument);
+
+    List<User>
+  List<Memeber>
 }

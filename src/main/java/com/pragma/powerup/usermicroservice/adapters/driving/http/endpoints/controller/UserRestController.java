@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.cont
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserEmployeeRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
@@ -17,15 +18,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "jwt")
 public class UserRestController {
 
     private final IUserHandler userHandler;
+
+    @Operation(summary = "Show all admins multiplex in system")
+    @GetMapping("/all/admins")
+    public ResponseEntity<List<AdminResponseDto>> getAllAdmins() {
+        return ResponseEntity.ok(userHandler.getAllAdmins());
+    }
 /*
     @Operation(summary = "Add a new userOwner",
             responses = {
@@ -42,7 +50,7 @@ public class UserRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_OWNER_CREATED_MESSAGE));
     }
 */
-    @Operation(summary = "Get a user for conect MicroservicePlazoleta",
+    @Operation(summary = "Get a user for conect MicroserviceMultiplex",
             responses = {
                     @ApiResponse(responseCode = "200", description = "User returned",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthUserResponse.class))),

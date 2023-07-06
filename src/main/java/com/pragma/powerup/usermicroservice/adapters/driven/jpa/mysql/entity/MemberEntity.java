@@ -27,8 +27,8 @@ public class MemberEntity {
     @Column(unique = true, nullable = false, length = 20)
     private String codeEmployee;
 
-    @Column(length = 80)
-    private String multiplex;
+    @Column(nullable = false)
+    private Long idMultiplex;
 
     @Column(nullable = false)
     private int salary;
