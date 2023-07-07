@@ -19,7 +19,6 @@ public interface IUserResponseMapper {
     @Mapping(target = "role",source = "role.name")
     AuthUserResponse userToAuthUserResponse(User user);
 
-    List<AdminResponseDto> toListDto (List<User> userList, List<Member> memberList);
 
 
 }

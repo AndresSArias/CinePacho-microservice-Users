@@ -24,7 +24,7 @@ public class UserHandlerImpl implements IUserHandler {
 
     @Override
     public List<AdminResponseDto> getAllAdmins() {
-        return userResponseMapper.toListDto(userServicePort.getAllAdmin());
+        return userServicePort.getAllAdmins();
     }
 
     /*

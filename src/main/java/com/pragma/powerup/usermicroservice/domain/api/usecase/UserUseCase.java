@@ -1,7 +1,9 @@
 package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.MemberEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.AgeNotAllowedForCreationException;
@@ -14,8 +16,11 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
@@ -83,6 +88,30 @@ public class UserUseCase implements IUserServicePort {
     @Override
     public User getUserByDocument(String numberDocument) {
         return userPersistencePort.getUserByDocument(numberDocument);
+    }
+
+    @Override
+    public List<AdminResponseDto> getAllAdmins() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<AdminResponseDto> adminResponseDtos = new ArrayList<>();
+
+        List<UserEntity> userEntities = userPersistencePort.getAllUserAdmin();
+        List<MemberEntity> memberEntities = new ArrayList<>();
+        for (int i = 0; i < userEntities.size(); i++){
+            memberEntities.add(userPersistencePort.getMemberById(userEntities.get(i).getNumberDocument()));
+            adminResponseDtos.add(new AdminResponseDto(userEntities.get(i).getId()+"",
+                    userEntities.get(i).getNumberDocument(),
+                    userEntities.get(i).getName(),
+                    userEntities.get(i).getDateBirth().format(formatter),
+                    userEntities.get(i).getPhone(),
+                    userEntities.get(i).getEmail(),
+                    memberEntities.get(i).getCodeEmployee(),
+                    memberEntities.get(i).getSalary()+"",
+                    memberEntities.get(i).getDateContract().format(formatter),
+                    memberEntities.get(i).getIdMultiplex()+""));
+        }
+
+        return adminResponseDtos;
     }
 
     public boolean validatePhone(User user) {

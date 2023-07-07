@@ -1,7 +1,10 @@
 package com.pragma.powerup.usermicroservice.domain.api;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.User;
+
+import java.util.List;
 
 public interface IUserServicePort {
   /*
@@ -11,6 +14,5 @@ public interface IUserServicePort {
 */
     User getUserByDocument (String numberDocument);
 
-    List<User>
-  List<Memeber>
+    List<AdminResponseDto> getAllAdmins();
 }

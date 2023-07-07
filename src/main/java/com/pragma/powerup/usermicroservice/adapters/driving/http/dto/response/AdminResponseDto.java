@@ -13,7 +13,7 @@ public class AdminResponseDto {
     private String phone;
     private String email;
     private String codeEmployee;
-    private String Salary;
+    private String salary;
     private String dateContract;
     private String idMultiplex;
 }
