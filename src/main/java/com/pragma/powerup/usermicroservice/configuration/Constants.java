@@ -9,7 +9,7 @@ public class Constants {
     public static final Long DIRECTOR_ROLE_ID = 1L;
     public static final Long ADMIN_ROLE_ID = 2L;
     public static final Long EMPLOYEE_ROLE_ID = 3L;
-    public static final Long CUSTOMER_ROLE_ID = 4L;
+    public static final Long CLIENT_ROLE_ID = 4L;
 
     public static final String RESPONSE_MESSAGE_KEY = "message";
     public static final String USER_OWNER_CREATED_MESSAGE = "UserOwner created successfully";

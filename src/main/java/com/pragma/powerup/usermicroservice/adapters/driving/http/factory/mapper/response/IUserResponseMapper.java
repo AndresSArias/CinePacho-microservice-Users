@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Member;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import org.mapstruct.Mapper;
@@ -19,6 +20,7 @@ public interface IUserResponseMapper {
     @Mapping(target = "role",source = "role.name")
     AuthUserResponse userToAuthUserResponse(User user);
 
-
+    @Mapping(target = "idClient", source = "id")
+    ClienteCreateResponseDto toClientCreateDto (User user);
 
 }

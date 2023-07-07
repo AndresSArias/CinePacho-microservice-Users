@@ -4,6 +4,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Rol
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IClientRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IMemberRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
@@ -26,7 +27,7 @@ public class BeanConfiguration {
     private final IUserRepository userRepository;
 
     private  final IMemberRepository memberRepository;
-
+    private final IClientRepository clientRepository;
     private final IRoleEntityMapper roleEntityMapper;
     private final IUserEntityMapper userEntityMapper;
 
@@ -47,6 +48,6 @@ public class BeanConfiguration {
     }
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMysqlAdapter(userRepository, roleRepository,memberRepository, userEntityMapper);
+        return new UserMysqlAdapter(userRepository, roleRepository,memberRepository,clientRepository, userEntityMapper);
     }
 }

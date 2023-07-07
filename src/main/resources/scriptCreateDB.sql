@@ -89,7 +89,7 @@ ALTER TABLE clients
 ;
 
 ALTER TABLE clients 
- ADD CONSTRAINT CK_Rating CHECK (rating_cinepacho > 0)
+ ADD CONSTRAINT CK_Rating CHECK (rating_cinepacho >= 0)
 ;
 
 ALTER TABLE clients 

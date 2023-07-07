@@ -1,7 +1,8 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.response.IUserResponseMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.request.IUserRequestMapper;
@@ -41,6 +42,25 @@ public class UserHandlerImpl implements IUserHandler {
     @Override
     public AuthUserResponse getUsuario(String numberDocument) {
         return userResponseMapper.userToAuthUserResponse(userServicePort.getUserByDocument(numberDocument));
+    }
+
+    @Override
+    public ClienteCreateResponseDto saveClient(UserRequestDto userRequestDto) {
+
+        ClienteCreateResponseDto clienteCreateResponseDto = userResponseMapper.toClientCreateDto(userServicePort.saveClient(userRequestMapper.toModel(userRequestDto)));
+        clienteCreateResponseDto.setMessage("CorrectData:Create cliente successful");
+
+        return clienteCreateResponseDto;
+    }
+
+    @Override
+    public MessageCodeResponseDto isExist(String numDocument) {
+        return userServicePort.isExist(numDocument);
+    }
+
+    @Override
+    public ClienteCreateResponseDto saveAdmin(UserAdminRequestDto userAdminRequestDto) {
+        return userServicePort.saveAdmin(userAdminRequestDto);
     }
 
 }

@@ -20,10 +20,9 @@ import java.time.format.DateTimeParseException;
 public interface IUserRequestMapper {
 
     @Mapping(source = "dateBirth", target = "dateBirth", qualifiedByName = "toDate")
-    User toUserOwner(UserRequestDto userRequestDto);
+    User toModel (UserRequestDto userRequestDto);
 
-    @Mapping(source = "dateBirth", target = "dateBirth", qualifiedByName = "toDate")
-    User toUserEmployee (UserEmployeeRequestDto userEmployeeRequestDto);
+
     @Named("toDate")
     default LocalDate toDate(String dateOfBirth) throws ParseException {
         try {

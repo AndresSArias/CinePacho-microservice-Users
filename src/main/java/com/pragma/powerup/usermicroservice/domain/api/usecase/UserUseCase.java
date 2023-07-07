@@ -3,7 +3,10 @@ package com.pragma.powerup.usermicroservice.domain.api.usecase;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.MemberEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.AgeNotAllowedForCreationException;
@@ -52,9 +55,7 @@ public class UserUseCase implements IUserServicePort {
             throw new DNIIsSoBigException();
         }
 
-        if (!validatePhone(user)){
-            throw new PhoneLenghtException();
-        }
+
 
 
         user.setRole(rolePersistencePort.getRol(OWNER_ROLE_ID));
@@ -112,6 +113,30 @@ public class UserUseCase implements IUserServicePort {
         }
 
         return adminResponseDtos;
+    }
+
+    @Override
+    public User saveClient(User user) {
+        if (!validatePhone(user)){
+            throw new PhoneLenghtException();
+        }
+        return userPersistencePort.saveClient(user);
+    }
+
+    @Override
+    public MessageCodeResponseDto isExist(String numDocument) {
+        return userPersistencePort.isExist(numDocument);
+    }
+
+    @Override
+    public ClienteCreateResponseDto saveAdmin(UserAdminRequestDto userAdminRequestDto) {
+        User userPhone= new User();
+        userPhone.setPhone(userAdminRequestDto.getPhone());
+        if (!validatePhone(userPhone)){
+            throw new PhoneLenghtException();
+        }
+        userAdminRequestDto.setPassword(passwordEncoder.encode(userAdminRequestDto.getPassword()));
+        return userPersistencePort.saveAdmin(userAdminRequestDto);
     }
 
     public boolean validatePhone(User user) {
