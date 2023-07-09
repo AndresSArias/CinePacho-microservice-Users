@@ -63,4 +63,9 @@ public class UserHandlerImpl implements IUserHandler {
         return userServicePort.saveAdmin(userAdminRequestDto);
     }
 
+    @Override
+    public void updatePoints(String idClient, String points) {
+        userServicePort.updatePoints(Long.parseLong(idClient),Integer.parseInt(points));
+    }
+
 }

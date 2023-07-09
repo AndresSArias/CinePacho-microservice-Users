@@ -91,6 +91,13 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
     }
+
+    @ExceptionHandler(ClientNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleClientNotFoundException(
+            ClientNotFoundException clientNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, CLIENT_NOT_FOUND_MESSAGE));
+    }
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleRoleNotFoundException(
             RoleNotFoundException roleNotFoundException) {
@@ -132,4 +139,5 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PROBLEM_NIT_RESTAURANT_MESSAGE));
     }
+
 }

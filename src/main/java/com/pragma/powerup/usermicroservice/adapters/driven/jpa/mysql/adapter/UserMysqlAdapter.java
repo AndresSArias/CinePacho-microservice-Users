@@ -4,6 +4,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Clie
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.MemberEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IClientEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IClientRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IMemberRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
@@ -12,6 +13,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUs
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
+import com.pragma.powerup.usermicroservice.domain.model.Client;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import jakarta.validation.constraints.Null;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
 
@@ -36,6 +39,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final IMemberRepository memberRepository;
     private final IClientRepository clientRepository;
     private final IUserEntityMapper userEntityMapper;
+    private final IClientEntityMapper clientEntityMapper;
 
 
 
@@ -126,6 +130,31 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         memberRepository.save(memberEntity);
 
         return new ClienteCreateResponseDto( admin.getId()+"","Sí se creó el administrador");
+    }
+
+    @Override
+    public User getUserById(long id) {
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+
+        if (!userEntity.isPresent()){
+            throw new UserNotFoundException();
+        }
+
+        return userEntityMapper.toUser(userEntity.get());
+    }
+
+    @Override
+    public Client getClientByDocument(String document) {
+        Optional<ClientEntity> clientEntity = clientRepository.findByNumberDocument(document);
+        if(!clientEntity.isPresent()){
+            throw new ClientNotFoundException();
+        }
+        return clientEntityMapper.toClient(clientEntity.get());
+    }
+
+    @Override
+    public Client updateClient(Client client) {
+        return clientEntityMapper.toClient(clientRepository.save(clientEntityMapper.toClientEntity(client)));
     }
 
 }

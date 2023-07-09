@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IClientEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IClientRepository;
@@ -25,12 +26,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BeanConfiguration {
     private final IRoleRepository roleRepository;
     private final IUserRepository userRepository;
-
     private  final IMemberRepository memberRepository;
     private final IClientRepository clientRepository;
+
     private final IRoleEntityMapper roleEntityMapper;
     private final IUserEntityMapper userEntityMapper;
-
+    private final IClientEntityMapper clientEntityMapper;
     private final IPlazoletaClient plazoletaClient;
     private final PasswordEncoder passwordEncoder;
 
@@ -48,6 +49,6 @@ public class BeanConfiguration {
     }
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMysqlAdapter(userRepository, roleRepository,memberRepository,clientRepository, userEntityMapper);
+        return new UserMysqlAdapter(userRepository, roleRepository,memberRepository,clientRepository, userEntityMapper,clientEntityMapper);
     }
 }

@@ -12,7 +12,7 @@ public class Constants {
     public static final Long CLIENT_ROLE_ID = 4L;
 
     public static final String RESPONSE_MESSAGE_KEY = "message";
-    public static final String USER_OWNER_CREATED_MESSAGE = "UserOwner created successfully";
+    public static final String PLATE_UPDATED_MESSAGE = "The points of user is succesfull update";
     public static final String USER_EMPLOYEE_CREATED_MESSAGE = "UserEmployee created successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
     public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credential";
@@ -21,6 +21,7 @@ public class Constants {
     public static final String USER_ALREADY_EXISTS_MESSAGE = "A user already exists with the DNI number provided";
     public static final String MAIL_ALREADY_EXISTS_MESSAGE = "A user with that mail already exists";
     public static final String USER_NOT_FOUND_MESSAGE = "No user found with the id provided";
+    public static final String CLIENT_NOT_FOUND_MESSAGE = "The user with the id provided is no client";
     public static final String ROLE_NOT_ALLOWED_MESSAGE = "No permission granted to create users with this role";
     public static final String ROLE_NOT_FOUND_MESSAGE = "No role found with the id provided";
     public static final String AGE_NOT_ALLOWED_MESSAGE = "The age of user is no allowed";

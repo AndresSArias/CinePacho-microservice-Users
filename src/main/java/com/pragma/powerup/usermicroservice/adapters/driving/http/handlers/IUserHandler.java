@@ -23,4 +23,6 @@ public interface IUserHandler {
 
     ClienteCreateResponseDto saveAdmin (UserAdminRequestDto userAdminRequestDto);
 
+    void updatePoints (String idClient, String points);
+
 }

@@ -13,6 +13,8 @@ import com.pragma.powerup.usermicroservice.domain.exceptions.AgeNotAllowedForCre
 import com.pragma.powerup.usermicroservice.domain.exceptions.DNIIsSoBigException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NitRestaurantException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
+import com.pragma.powerup.usermicroservice.domain.model.Client;
+import com.pragma.powerup.usermicroservice.domain.model.Member;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -32,6 +34,7 @@ public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
     private final IRolePersistencePort rolePersistencePort;
     private final IUserEntityMapper userEntityMapper;
+
     private final IPlazoletaClient plazoletaClient;
 
     private final PasswordEncoder passwordEncoder;
@@ -137,6 +140,17 @@ public class UserUseCase implements IUserServicePort {
         }
         userAdminRequestDto.setPassword(passwordEncoder.encode(userAdminRequestDto.getPassword()));
         return userPersistencePort.saveAdmin(userAdminRequestDto);
+    }
+
+    @Override
+    public Client updatePoints(Long id, int points) {
+        User user = userPersistencePort.getUserById (id);
+
+        Client updateClient = userPersistencePort.getClientByDocument(user.getNumberDocument());
+
+        updateClient.setPoints(updateClient.getPoints()+points);
+
+        return userPersistencePort.updateClient(updateClient);
     }
 
     public boolean validatePhone(User user) {

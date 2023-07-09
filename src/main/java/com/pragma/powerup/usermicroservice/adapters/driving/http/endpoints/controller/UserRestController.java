@@ -64,6 +64,12 @@ public class UserRestController {
     public ResponseEntity<AuthUserResponse> getUser(@PathVariable String numberDocument) {
         return ResponseEntity.ok(userHandler.getUsuario(numberDocument));
     }
+    @Operation(summary = "Update points of User")
+    @PutMapping("/points/{idClient}/{points}")
+    public ResponseEntity<Map<String, String>> updatePoints(@Valid @PathVariable String idClient, @PathVariable String points) {
+        userHandler.updatePoints(idClient, points);
+        return ResponseEntity.ok().body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PLATE_UPDATED_MESSAGE));
+    }
 /*
 
     @PostMapping("/createUserCustomer")
