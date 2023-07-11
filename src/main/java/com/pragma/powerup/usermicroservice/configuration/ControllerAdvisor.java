@@ -140,4 +140,12 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PROBLEM_NIT_RESTAURANT_MESSAGE));
     }
 
+
+    @ExceptionHandler(ClientCannotUpdateRaitingException.class)
+    public ResponseEntity<Map<String, String>> handleClientCannotUpdateRaitingException(
+            ClientCannotUpdateRaitingException clientCannotUpdateRaitingException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, CLIENT_CANNOT_UPDATE_RAITING_MESSAGE));
+    }
+
 }

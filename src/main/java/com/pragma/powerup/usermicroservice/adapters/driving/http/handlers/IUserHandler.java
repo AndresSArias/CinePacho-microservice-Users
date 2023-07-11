@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.QualificationRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserEmployeeRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
@@ -8,11 +9,8 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.*;
 import java.util.List;
 
 public interface IUserHandler {
-    /*
-    void saveUserOwner(UserRequestDto userRequestDto);
 
-    void saveUserCustomer(UserRequestDto userRequestDto);
-*/
+    void updateRating (QualificationRequestDto qualificationRequestDto);
     List<AdminResponseDto> getAllAdmins ();
 
     AuthUserResponse getUsuario (String numberDocument);

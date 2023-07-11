@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.controller;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.QualificationRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserEmployeeRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
@@ -66,18 +67,16 @@ public class UserRestController {
     }
     @Operation(summary = "Update points of User")
     @PutMapping("/points/{idClient}/{points}")
-    public ResponseEntity<Map<String, String>> updatePoints(@Valid @PathVariable String idClient, @PathVariable String points) {
+    public ResponseEntity<Map<String, String>> updatePoints(@PathVariable String idClient, @PathVariable String points) {
         userHandler.updatePoints(idClient, points);
         return ResponseEntity.ok().body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PLATE_UPDATED_MESSAGE));
     }
-/*
 
-    @PostMapping("/createUserCustomer")
-    public ResponseEntity<Map<String, String>> saveUserCustomer(@Valid @RequestBody UserRequestDto userRequestDto) {
-        userHandler.saveUserCustomer(userRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_EMPLOYEE_CREATED_MESSAGE));
+    @Operation(summary = "Update rating of service Cine Pacho by Client")
+    @PutMapping("/qualification/service")
+    public ResponseEntity<Map<String, String>> updateRating(@Valid @RequestBody QualificationRequestDto qualificationRequestDto) {
+        userHandler.updateRating(qualificationRequestDto);
+        return ResponseEntity.ok().body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RAITING_SERIVE_UPDATED_MESSAGE));
     }
 
-*/
 }

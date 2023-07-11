@@ -13,7 +13,7 @@ public class Constants {
 
     public static final String RESPONSE_MESSAGE_KEY = "message";
     public static final String PLATE_UPDATED_MESSAGE = "The points of user is succesfull update";
-    public static final String USER_EMPLOYEE_CREATED_MESSAGE = "UserEmployee created successfully";
+    public static final String RAITING_SERIVE_UPDATED_MESSAGE = "The qualification of service update successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
     public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credential";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
@@ -35,7 +35,7 @@ public class Constants {
     public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
     public static final String EMPLOYEE_HAS_WORK_MESSAGE = "The worker who wants to register already has a job.";
     public static final String PROBLEM_NIT_RESTAURANT_MESSAGE = "A problem has occurred with the restaurant nit provided in the request.";
-
+    public static final String CLIENT_CANNOT_UPDATE_RAITING_MESSAGE = "The client cannot update qualification because already updated";
     public static final String ROLES = "roles";
     public static final String IDUSER = "idUser";
 

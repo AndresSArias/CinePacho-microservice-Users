@@ -10,6 +10,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositorie
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.QualificationRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
@@ -155,6 +156,20 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     @Override
     public Client updateClient(Client client) {
         return clientEntityMapper.toClient(clientRepository.save(clientEntityMapper.toClientEntity(client)));
+    }
+
+    @Override
+    public void updateRating(QualificationRequestDto qualificationRequestDto) {
+        Optional<ClientEntity> clientEntity = clientRepository.findByNumberDocument(qualificationRequestDto.getNumberDocument());
+        if(!clientEntity.isPresent()){
+            throw new ClientNotFoundException();
+        }
+        if (clientEntity.get().getRatingCinepacho() == 0.0){
+            clientEntity.get().setRatingCinepacho(Double.parseDouble(qualificationRequestDto.getQualificationService()));
+        }else {
+            throw new ClientCannotUpdateRaitingException();
+        }
+        clientRepository.save(clientEntity.get());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.QualificationRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.*;
@@ -22,6 +23,11 @@ public class UserHandlerImpl implements IUserHandler {
     private final IUserResponseMapper userResponseMapper;
 
     private final JwtProvider jwtProvider;
+
+    @Override
+    public void updateRating(QualificationRequestDto qualificationRequestDto) {
+        userServicePort.updateRating(qualificationRequestDto);
+    }
 
     @Override
     public List<AdminResponseDto> getAllAdmins() {

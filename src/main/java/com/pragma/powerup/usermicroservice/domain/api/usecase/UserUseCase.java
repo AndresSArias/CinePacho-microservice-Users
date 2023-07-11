@@ -3,18 +3,14 @@ package com.pragma.powerup.usermicroservice.domain.api.usecase;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.MemberEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.QualificationRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
-import com.pragma.powerup.usermicroservice.domain.exceptions.AgeNotAllowedForCreationException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.DNIIsSoBigException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.NitRestaurantException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
 import com.pragma.powerup.usermicroservice.domain.model.Client;
-import com.pragma.powerup.usermicroservice.domain.model.Member;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -28,67 +24,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
-
 public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
     private final IRolePersistencePort rolePersistencePort;
     private final IUserEntityMapper userEntityMapper;
 
-    private final IPlazoletaClient plazoletaClient;
-
     private final PasswordEncoder passwordEncoder;
 
-    public UserUseCase(IUserPersistencePort userPersistencePort, IRolePersistencePort rolePersistencePort, IUserEntityMapper userEntityMapper,IPlazoletaClient plazoletaClient,PasswordEncoder passwordEncoder) {
+    public UserUseCase(IUserPersistencePort userPersistencePort, IRolePersistencePort rolePersistencePort, IUserEntityMapper userEntityMapper,PasswordEncoder passwordEncoder) {
         this.userPersistencePort = userPersistencePort;
         this.rolePersistencePort = rolePersistencePort;
         this.userEntityMapper = userEntityMapper;
-        this.plazoletaClient = plazoletaClient;
         this.passwordEncoder = passwordEncoder;
     }
-    /*
-    @Override
-    public UserEntity saveUserOwner(User user) {
-
-        if (!validateAge(user.getDateBirth())) {
-            throw new AgeNotAllowedForCreationException();
-        }
-
-        if (user.getNumberDocument().length() > 20){
-            throw new DNIIsSoBigException();
-        }
-
-
-
-
-        user.setRole(rolePersistencePort.getRol(OWNER_ROLE_ID));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userPersistencePort.saveUserOwner(user);
-    }
 
     @Override
-    public UserEntity saveUserCustomer(User user) {
-
-        if (!validateAge(user.getDateBirth())) {
-            throw new AgeNotAllowedForCreationException();
-        }
-
-        if (user.getNumberDocument().length() > 20){
-            throw new DNIIsSoBigException();
-        }
-
-        if (!validatePhone(user)){
-            throw new PhoneLenghtException();
-        }
-
-
-        user.setRole(rolePersistencePort.getRol(CUSTOMER_ROLE_ID));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userPersistencePort.saveUserCustomer(user);
+    public void updateRating(QualificationRequestDto qualificationRequestDto) {
+        userPersistencePort.updateRating(qualificationRequestDto);
     }
-    */
+
     @Override
     public User getUserByDocument(String numberDocument) {
         return userPersistencePort.getUserByDocument(numberDocument);
