@@ -11,10 +11,11 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://johan-ff.github.io/Cinema-Interface---React-Next-js/")
+                .allowedOrigins("https://johan-ff.github.io")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
 }
+
 
