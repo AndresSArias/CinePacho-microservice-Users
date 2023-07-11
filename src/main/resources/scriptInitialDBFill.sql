@@ -38,3 +38,8 @@ INSERT INTO users (id, number_document, name, date_birth, phone, email, id_role)
 VALUES (6, '22', 'Andrés Gomez', STR_TO_DATE('10-02-1998', '%d-%m-%Y'),'3103164567','AdminEmbajador@cinepacho.com', 2);
 INSERT INTO members (id,number_document,code_employee,id_multiplex,salary,date_contract,password)
 VALUES (4,'22', 'AE1',5,10000000,STR_TO_DATE('10-07-2023', '%d-%m-%Y'),'$2a$10$GlsGSNhkbVon6ZOSNMptOu5RikedRzlCAhMa7YpwvUSS0c88WT99S');
+
+INSERT INTO users (id, number_document, name, date_birth, phone, email, id_role)
+VALUES (7, '12345', 'Diana Arias', STR_TO_DATE('10-02-1979', '%d-%m-%Y'),'3103864567','Cliente3@cinepacho.com', 4);
+INSERT INTO clients (id,number_document,rating_cinepacho,points)
+VALUES (3,'12345',0.00,0);
