@@ -14,6 +14,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Qua
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PointsClientResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Client;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -62,6 +63,16 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         }
 
         return userRepository.save(userEntityMapper.toEntity(user));
+    }
+
+    @Override
+    public PointsClientResponseDto getPoints(String numberDocument) {
+        Optional<ClientEntity> clientEntity = clientRepository.findByNumberDocument(numberDocument);
+        if(!clientEntity.isPresent()){
+            throw new ClientNotFoundException();
+        }
+        PointsClientResponseDto response = new PointsClientResponseDto(clientEntity.get().getPoints()+"","Puntos del cliente devueltos");
+        return response;
     }
 
 

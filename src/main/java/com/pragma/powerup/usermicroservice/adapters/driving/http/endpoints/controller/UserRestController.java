@@ -79,4 +79,10 @@ public class UserRestController {
         return ResponseEntity.ok().body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RAITING_SERIVE_UPDATED_MESSAGE));
     }
 
+    @Operation(summary = "Get points of client")
+    @GetMapping("/client/points/{numberDocument}")
+    public ResponseEntity<PointsClientResponseDto> getAllAdmins(@PathVariable String numberDocument) {
+        return ResponseEntity.ok(userHandler.getPoints(numberDocument));
+    }
+
 }

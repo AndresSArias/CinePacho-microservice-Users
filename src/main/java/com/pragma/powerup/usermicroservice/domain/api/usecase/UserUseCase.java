@@ -8,6 +8,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Use
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AdminResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PointsClientResponseDto;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
 import com.pragma.powerup.usermicroservice.domain.model.Client;
@@ -105,6 +106,11 @@ public class UserUseCase implements IUserServicePort {
         updateClient.setPoints(updateClient.getPoints()+points);
 
         return userPersistencePort.updateClient(updateClient);
+    }
+
+    @Override
+    public PointsClientResponseDto getPoints(String numberDocument) {
+        return userPersistencePort.getPoints(numberDocument);
     }
 
     public boolean validatePhone(User user) {

@@ -74,4 +74,9 @@ public class UserHandlerImpl implements IUserHandler {
         userServicePort.updatePoints(Long.parseLong(idClient),Integer.parseInt(points));
     }
 
+    @Override
+    public PointsClientResponseDto getPoints(String numberDocument) {
+        return userServicePort.getPoints(numberDocument);
+    }
+
 }

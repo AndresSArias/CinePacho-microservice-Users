@@ -23,4 +23,6 @@ public interface IUserHandler {
 
     void updatePoints (String idClient, String points);
 
+    PointsClientResponseDto getPoints (String numberDocument);
+
 }

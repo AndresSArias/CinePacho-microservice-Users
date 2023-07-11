@@ -6,6 +6,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Qua
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserAdminRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.ClienteCreateResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.MessageCodeResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PointsClientResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Client;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 
@@ -15,7 +16,7 @@ public interface IUserPersistencePort {
 
     UserEntity saveUserEmployee (User user);
 
-
+    PointsClientResponseDto getPoints (String numberDocument);
     User getUserByDocument(String numberDocument);
 
     List<UserEntity> getAllUserAdmin ();
