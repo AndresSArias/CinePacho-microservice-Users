@@ -8,3 +8,13 @@ spring:
   sql:
     init:
       mode: always # you won't do this in prod, I'm just doing this for demo purposes
+
+jwt:
+  secret: ${KEYSECRET_SECURITY:eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.nZU_gPcMXkWpkCUpJceSxS7lSickF0tTImHhAR949Z-Nt69LgW8G6lid-mqd9B579tYM8C4FN2jdhR2VRMsjtA}
+  expiration: ${EXPIRE_DAYS_SECURITY:3600000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
