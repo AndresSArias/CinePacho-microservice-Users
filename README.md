@@ -1,8 +1,8 @@
 <br />
 <div align="center">
-<h3 align="center">PRAGMA POWER-UP</h3>
+<h3 align="center">CINE PACHO, MICROSERVICE USERS</h3>
   <p align="center">
-    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city. This is Microservice of Users, this services resolve the HU1, HU5, HU6 and HU8 now you need to authenticate with email and it is complement for resolve HU2, HU3, HU4, HU7 and HU9 in the Plazoleta microservice.
+   Installation guide for the backend of a system that resolve the services of a cinema chain that has different multiplexes in the city. This is the Users Microservice, this microservice solves the authentication and user management requirements in the Cine Pacho system.
   </p>
 </div>
 
@@ -37,17 +37,17 @@ To get a local copy up and running follow these steps.
    cd PowerUp-Reto-microserviceUsers
    ```
 3. Execute the script of "scriptCreateDB" in resource (src/main/resources/scriptCreateDB.sql).
-4. Update the database connection settings
+4. After the data base are created execute src/main/resources/scriptInitialDBFill.sql content to populate the database
+5. Update the database connection settings
    ```yml
    # src/main/resources/application-dev.yml
    spring:
       datasource:
-          url: jdbc:mysql://localhost/dbusers
+          url: jdbc:mysql://localhost/cinepacho_dbusers
           username: root
           password: <your-password>
    ```
-5. After the tables are created execute src/main/resources/scriptInitialDBFill.sql content to populate the database
-6. Open Swagger UI and search the /auth/login endpoint and login with email: ADMIN@ADMIN.COM, password: 1234
+6. Open Swagger UI and search the /auth/login endpoint and login with ID: 9999999999, password: 1234
 
 <!-- USAGE -->
 ## Usage
